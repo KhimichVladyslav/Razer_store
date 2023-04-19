@@ -1,0 +1,111 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}Basket Summary{% endblock %}
+{% block content %}
+
+    <main class="pt-5">
+
+        <div>
+            <a class="btn btn-outline-success" href="{% url 'store:all_products' %}">To the Razer's Store</a>
+            {% if basket|length > 0 %}
+                <a href="{% url 'basket:checkout' %}" class="btn btn-warning">Checkout</a>
+            {% else %}
+                <h4 class="text-center" style="color:green;">The basket is empty!</h4>
+            {% endif %}
+        </div>
+        <hr>
+
+        <div class="container">
+
+            <h1 class="h5">Razer's basket</h1>
+
+            {% for item in basket %}
+                {% with product=item.product %}
+
+                    <div data-index="{{ product.id }}" class="row mb-4 border product-item shadow">
+
+                        <div class="col-md-2 mt-4 col-lg-2 order-md-first bg-light">
+                            <img class="img-fluid mx-auto d-block image" alt="Responsive image"
+                                 src="{{ product.image.url }}">
+                        </div>
+
+
+                        <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
+
+
+                            <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
+                                <h1 class="h5 pt-2">{{ product.title }}</h1>
+                            </a>
+
+                            <div class="border-info">
+
+
+                                {# форма для зв'язку #}
+                                <form action="{% url 'basket:basket_add' product.id %}" method="post">
+
+
+                                    {# Ціна за 1 штуку #}
+                                    <div class="col border-bottom">
+                                        <div class="row p-3">
+                                            <div class="col-6">Price:</div>
+                                            <div class="col-6 text-end"><span
+                                                    class="h6 fw-bold">UAH: {{ product.price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {# Загальна ціна за КОНКРЕТНИЙ товар #}
+                                    <div class="col border-bottom">
+                                        <div class="row p-3">
+                                            <div class="col-6">Total price for item:</div>
+                                            <div class="col-6 text-end"><span
+                                                    class="h6 fw-bold">UAH: {{ item.total_price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {# апдейт та делейт #}
+                                    <div class="col mb-3">
+                                        <div class="row p-3">
+                                            <div class="col-6" style="margin-top: 5px">
+                                                Quantity: {{ item.update_quantity_form.quantity }}</div>
+                                            <div class="col-6 text-end"><span
+                                                    class="h6 fw-bold">{{ item.update_quantity_form.update }}
+                                        <input class="btn btn-outline-success" type="submit" value="Update"></span>
+                                                <a class="btn btn-outline-danger"
+                                                   href="{% url 'basket:basket_remove' product.id %}">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {% csrf_token %}
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+
+            {# загальна вартість всіх товарів в корзині #}
+            <div class="col-12 text-end border-bottom">
+                <div class="h5 fw-bold">Total UAH:
+                    <div id="subtotal" class="d-inline-flex" style="color:green;">{{ basket.get_total_price }}</div>
+                </div>
+            </div>
+
+            {# завершення покупки #}
+            <div class="col-12 text-end mt-3">
+                {% if basket|length > 0 %}
+                    <a href="{% url 'basket:checkout' %}" class="btn btn-warning">Checkout</a>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+
+{% endblock %}

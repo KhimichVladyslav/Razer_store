@@ -1,0 +1,12 @@
+
+.total {
+    color: green;
+}
+
+.image {
+    border-radius: 8px;
+}
+
+.form-control::placeholder{
+    color: darkseagreen;
+}

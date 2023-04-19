@@ -1,0 +1,65 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+
+
+    <main>
+        <div class="album py-4 bg-light">
+            <div class="container">
+
+                {#   вивід товарів:  ВСІХ   МІНІМАЛЬНИХ   МАКСИМАЛЬНИХ   #}
+                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-3 mb-2">
+                    <a class="btn btn-outline-primary" style="padding: 10px; transition: 1000ms; margin: 10px auto"
+                       href="{% url 'store:all_products' %}">All</a>
+                    <a class="btn btn-outline-success" style="padding: 10px; transition: 1000ms; margin: 10px auto"
+                       href="{% url 'store:all_products_by_price_min' %}">Lowest price</a>
+                    <a class="btn btn-outline-danger" style="padding: 10px; transition: 1000ms; margin: 10px auto"
+                       href="{% url 'store:all_products_by_price_max' %}">Highest price</a>
+                </div>
+
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 g-3">
+
+                    {% for product in products %}
+
+                        <div class="col">
+                            <div class="card shadow-sm p-2">
+
+                                {% if product.image %}
+                                    <a href="{{ product.get_absolute_url }}"><img class="img-fluid"
+                                                                                  src="{{ product.image.url }}"
+                                                                                  alt="No image found for {{ product.title }}"></a>
+                                {% else %}
+                                    <img class="img-fluid" src="/media/images/default.jpeg" alt="None">
+                                {% endif %}
+
+                                <div class="card-body">
+                                    <hr>
+                                    <h5>
+                                        <a class="cart-text" style="text-decoration: none; color: inherit"
+
+                                                {# визиваємо метод, який потім перенаправляє нас на URL з назвою товару #}
+                                           href="{{ product.get_absolute_url }}"><strong>{{ product.title }}</strong>
+                                        </a>
+                                    </h5>
+                                    <a class="btn btn-outline-success" href="{{ product.get_absolute_url }}">View</a>
+                                    <h4 style="display: inline-block;float: right">
+                                        <small style="color: green">UAH: {{ product.price|floatformat:2 }}</small>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </main>
+
+{% endblock %}

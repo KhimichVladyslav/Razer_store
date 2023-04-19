@@ -1,0 +1,72 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+
+
+    <main>
+        <div class="album py-4 bg-light">
+            <div class="container">
+
+                {% if query|length < 1 %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger m-2" id="msg" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <hr>
+                {% else %}
+                    <h3>Your are searching by the name:</h3>
+
+                    <h2 style="color: green">"{{ query }}"</h2>
+                    <hr>
+                {% endif %}
+                {% if products %}
+                    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 g-3">
+
+                    {% for product in products %}
+
+                        <div class="col">
+                            <div class="card shadow-sm">
+
+                                {% if product.image %}
+                                    <a href="{{ product.get_absolute_url }}"><img class="img-fluid"
+                                                                                  src="{{ product.image.url }}"
+                                                                                  alt="No image found for {{ product.title }}"></a>
+                                {% else %}
+                                    <img class="img-fluid" src="/media/images/default.jpeg" alt="None">
+                                {% endif %}
+
+                                <div class="card-body">
+                                    <hr>
+                                    <h5>
+                                        <a class="cart-text" style="text-decoration: none; color: inherit"
+
+                                                {# визиваємо метод, який потім перенаправляє нас на URL з назвою товару #}
+                                           href="{{ product.get_absolute_url }}"><strong>{{ product.title }}</strong>
+                                        </a>
+                                    </h5>
+                                    <a class="btn btn-outline-success"
+                                       href="{{ product.get_absolute_url }}">View</a>
+                                    <h4 style="display: inline-block;float: right">
+                                        <small style="color: green">UAH: {{ product.price|floatformat:2 }}</small>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <p class="h4" style="color: red">Razer products with the name "{{ query }}" is not available!</p>
+                {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+{% endblock %}

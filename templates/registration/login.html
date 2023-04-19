@@ -1,0 +1,22 @@
+{% extends 'store/base.html' %}
+
+{% load bootstrap4 %}
+
+
+{% block content %}
+
+    <form method='post' action="{% url "users:login" %}" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button name="submit" class="btn btn-success" style="margin: 4px">Log in</button>
+        {% endbuttons %}
+
+        <input type="hidden" name="next"
+               value="{% url 'store:all_products' %}"/>
+    </form>
+    <hr>
+    <h5 class="text-center">If not registered yet, do it now! >>> <a class="btn btn-outline-secondary"
+                                                                     href="{% url 'users:register' %}">Register</a></h5>
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+{% block content %}
+
+    {# --------------------------------------------------------------------------------------------------------------- #}
+
+    <div class="container" xmlns="http://www.w3.org/1999/html">
+        <main class="pt-5">
+            <div class="row g-3">
+                <div class="col-md-3 shadow">
+                    {% if product.image %}
+                        <img class="img-fluid image" alt="Responsive image" src="{{ product.image.url }}">
+                    {% else %}
+                        <img class="img-fluid" src="/media/images/default.jpeg" alt="img">
+                    {% endif %}
+                </div>
+
+                {# --------------------------------------------------------------------------------------------------------------- #}
+                <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5 shadow">
+                    <h1 class="mb-0 h4">{{ product.title }}</h1>
+                    <p>{{ product.description }}</p>
+
+                    <div class="border">
+                        <div class="col border-bottom">
+                            <div class="row p-3">
+                                <div class="col-6"><h4>Color:</h4></div>
+                                <div class="col-6 text-end"><span class="h4 fw-bold">{{ product.color }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col border-bottom">
+                            <div class="row p-3">
+                                <div class="col-6"><h4>Price:</h4></div>
+                                <div class="col-6 text-end"><span class="h4 fw-bold"
+                                                                  style="color: green">UAH: {{ product.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# ---------------------------------------------------------------------------------------- #}
+                        <div class="col">
+                            <div class="row p-3">
+                                <form class="col" action="{% url 'basket:basket_add' product.id %}" method="post">
+                                    {{ basket_product_form }}
+                                    {% csrf_token %}
+                                    <input class="btn btn-outline-success" style="margin-left: 420px" type="submit"
+                                           value='Add to basket'>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

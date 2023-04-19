@@ -1,0 +1,49 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+
+
+    <main>
+        <div class="album py-4 bg-light">
+            <div class="container">
+
+                <div class="pb-3 h2">{{ category.name|title }}</div>
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 g-3">
+
+                    {% for product in products %}
+
+                        <div class="col">
+                            <div class="card shadow-sm p-2">
+                                {% if product.image %}
+                                    <a href="{{ product.get_absolute_url }}"><img class="img-fluid" src="{{ product.image.url }}" alt="No image found for {{ product.title }}">
+                                {% else %}
+                                    <img class="img-fluid" src="/media/images/default.jpeg" alt="img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <hr>
+                                    <h5>
+                                        <a class="cart-text" style="text-decoration: none; color: inherit"
+                                           href="{{ product.get_absolute_url }}"><strong>{{ product.title }}</strong>
+                                        </a>
+                                    </h5>
+                                    <a class="btn btn-outline-success" href="{{ product.get_absolute_url }}">View</a>
+                                    <h4 style="display: inline-block;float: right">
+                                        <small style="color: green">UAH: {{ product.price|floatformat:2 }}</small>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+{% endblock %}
