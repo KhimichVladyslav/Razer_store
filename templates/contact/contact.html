@@ -6,37 +6,35 @@
 {% block content %}
 
 
-    
-    {# форма для відгуків та пропозицій #}
-    <div class="container">
-        <form class="" method="post" action="#">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="fname">Your Name</label>
-                <p></p>
-                <input name="name" required type="text" id="fname" class="form-control" placeholder="Enter your name">
-                <p></p>
-                <label for="exampleFormControlTextarea1">Your email</label>
-                <input name="email" required class="form-control mt-2" id="exampleFormControlTextarea1"
-                       placeholder="Enter your email">
-                <p></p>
-                <label for="subject">Subject</label>
-                <textarea class="form-control mt-2" id="subject" name="subject"
-                          placeholder="Enter some wishes and comments here :)"></textarea>
+{# форма для відгуків та пропозицій #}
+<div class="container">
+    <form class="" method="post" action="#">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="fname">Your Name</label>
+            <p></p>
+            <input name="name" required type="text" id="fname" class="form-control" placeholder="Enter your name">
+            <p></p>
+            <label for="exampleFormControlTextarea1">Your email</label>
+            <input name="email" required class="form-control mt-2" id="exampleFormControlTextarea1"
+                   placeholder="Enter your email">
+            <p></p>
+            <label for="subject">Subject</label>
+            <textarea class="form-control mt-2" id="subject" name="subject"
+                      placeholder="Enter some wishes and comments here :)"></textarea>
 
-                <input type="submit" required class="bnt btn-outline-success btn-lg mt-1" value="Submit">
-            </div>
-        </form>
-    </div>
-
+            <input type="submit" required class="bnt btn-outline-success btn-lg mt-1" value="Submit">
+        </div>
+    </form>
+</div>
 
 
-    {# гугл карта #}
-    <h2 class="text-center">Location of our Razer's Store</h2>
-    <div class="container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.993762557111!2d28.442933015958136!3d49.219645383155715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472d5b8805fbb0dd%3A0x50477f4d66a14fdf!2z0YPQuy4g0JDQutCw0LTQtdC80LjQutCwINCu0YnQtdC90LrQviwg0JLQuNC90L3QuNGG0LAsINCS0LjQvdC90LjRhtC60LDRjyDQvtCx0LvQsNGB0YLRjCwgMjEwMDA!5e0!3m2!1sru!2sua!4v1675850537059!5m2!1sru!2sua"
-                width=100% height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+{# гугл карта #}
+<h2 class="text-center">Location of our Razer's Store</h2>
+<div class="container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.993762557111!2d28.442933015958136!3d49.219645383155715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472d5b8805fbb0dd%3A0x50477f4d66a14fdf!2z0YPQuy4g0JDQutCw0LTQtdC80LjQutCwINCu0YnQtdC90LrQviwg0JLQuNC90L3QuNGG0LAsINCS0LjQvdC90LjRhtC60LDRjyDQvtCx0LvQsNGB0YLRjCwgMjEwMDA!5e0!3m2!1sru!2sua!4v1675850537059!5m2!1sru!2sua"
+            width=100% height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
 
 {% endblock content %}

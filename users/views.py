@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 def register(request):
     if request.method != "POST":
-        # Пуста форма для реєстрації
         form = UserCreationForm()
 
     else:

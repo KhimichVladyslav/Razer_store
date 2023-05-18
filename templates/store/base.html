@@ -1,8 +1,5 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="eng">
-
-
+<!doctype html>
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}RazerStore{% endblock %}</title>
@@ -46,18 +43,18 @@
                         {# елементи випадаючого вікна #}
                         <ul class="dropdown-menu bg-dark" aria-labelledby="navbarCollapse">
                             {% for c in categories %}
-                                <li>
-                                    <a class="dropdown-item h4"
-                                       style="color: #14c821; transition: 1500ms; font-size: 20px"
-                                       href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
-                                </li>
+                            <li>
+                                <a class="dropdown-item h4"
+                                   style="color: #14c821; transition: 1500ms; font-size: 20px"
+                                   href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
+                            </li>
                             {% endfor %}
 
                         </ul>
                     </li>
 
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="{% url 'contact:contact' %}"
+                        <a class="nav-link" aria-current="page" href="{% url 'contact:contact_page' %}"
                            style="color: #14c821; margin-left: 20px; font-size: 20px">Contact</a>
                     </li>
 
@@ -77,17 +74,17 @@
 
                     {# якщо юзер увійшов #}
                     {% if user.is_authenticated %}
-                        <span class="navbar-text"
-                              style="color: #14c821; margin-right: 20px">Hello, {{ user.username|upper }} !</span>
-                        <a href="{% url 'users:logout' %}" style="color: white"
-                           class="btn btn-danger button_log">Log out</a>
+                    <span class="navbar-text"
+                          style="color: #14c821; margin-right: 20px">Hello, {{ user.username|upper }} !</span>
+                    <a href="{% url 'users:logout' %}" style="color: white"
+                       class="btn btn-danger button_log">Log out</a>
                     {% else %}
-                        <a type="button" role='button' href="{% url 'users:login' %}"
-                           style="color: #14c821; margin: 10px"
-                           class="btn btn-outline-success button_log"> Login</a>
-                        <a href="{% url 'users:register' %}" style="color: white; margin: 10px"
-                           class="btn btn-success button_log">Sign
-                            Up</a>
+                    <a type="button" role='button' href="{% url 'users:login' %}"
+                       style="color: #14c821; margin: 10px"
+                       class="btn btn-outline-success button_log"> Login</a>
+                    <a href="{% url 'users:register' %}" style="color: white; margin: 10px"
+                       class="btn btn-success button_log">Sign
+                        Up</a>
                     {% endif %}
                 </div>
 
@@ -96,13 +93,13 @@
                 <a type="button" role='button' href="{% url 'basket:basket_detail' %}"
                    class="btn btn-outline-secondary" style="color: #14c821">
                     {% with total_qty=basket|length %}
-                        <div id="basket-qty" class="d-inline-flex">
-                            {% if total_qty > 0 %}
-                                {{ total_qty }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </div>
+                    <div id="basket-qty" class="d-inline-flex">
+                        {% if total_qty > 0 %}
+                        {{ total_qty }}
+                        {% else %}
+                        0
+                        {% endif %}
+                    </div>
                     {% endwith %}
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -132,11 +129,8 @@
 
 
     <footer class="bg-dark text-center text-lg-start" style="margin-top: 20px">
-        <!-- Grid container -->
         <div class="container p-4">
-            <!--Grid row-->
             <div class="row">
-                <!--Grid column-->
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0" style="color: lawngreen">
                     <h5 class="text-uppercase">RazerStore</h5>
 
@@ -164,5 +158,3 @@
 
 </div>
 </body>
-
-</html>

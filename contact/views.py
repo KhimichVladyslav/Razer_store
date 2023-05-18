@@ -1,8 +1,9 @@
-from django.shortcuts import render
 from .models import Contact
 
+from django.shortcuts import render
 
-def contact(request):
+
+def contact_page(request):
     if request.method == 'POST':
         contact = Contact()
         contact.name = request.POST.get('name')

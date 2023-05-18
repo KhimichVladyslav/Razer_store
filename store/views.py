@@ -16,6 +16,7 @@ def all_products(request):
     return render(request, 'store/all_products.html', {'products': products})
 
 
+#  this was made just for the test
 @login_required(login_url='/users/login/')
 def all_products_by_price_min(request):
     products = Product.products.order_by('price')
@@ -33,7 +34,6 @@ def category_list(request, category_slug=None):
     return render(request, 'store/products/category.html', {'category': category, 'products': products})
 
 
-# отримує назву товару та перенаправляє нас до нового URL з описом КОНКРЕТНОГО товару
 def product_detail(request, slug):
     # в product передається конкретний товар і вже по цьому в single.html виводиться інфа
     product = get_object_or_404(Product, slug=slug, in_stock=True)
@@ -44,8 +44,6 @@ def product_detail(request, slug):
                    })
 
 
-
-@require_GET
 def search(request):
     query = request.GET.get('query')
 
@@ -56,7 +54,6 @@ def search(request):
         if price:
             return render(request, 'store/search.html', {'products': price, 'query': query})
         elif category:
-            # тут по факту я просто розпаковую категорію (цикл складається з 1 ітерації)
             for item in category:
                 all_filtered = Product.objects.filter(category=item)
                 return render(request, 'store/search.html', {'products': all_filtered, 'query': query})

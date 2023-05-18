@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
-from store.models import Product, Order, OrderItem
+import random
+
 from .basket import Basket
 from .forms import CartAddProductForm
-from django.contrib import messages
+from store.models import Product, Order, OrderItem
 
-import random
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
 
 
 @require_POST
@@ -42,9 +43,6 @@ def checkout(request):
 
 @require_POST
 def placeorder(request):
-    # if request.method == 'POST':
-
-    """база окремого замовлення"""
     neworder = Order()
     neworder.first_name = request.POST.get('first_name')
     neworder.last_name = request.POST.get('last_name')
@@ -57,7 +55,6 @@ def placeorder(request):
     basket = Basket(request)
     neworder.total_price = basket.get_total_price()
 
-    """рандомно створюємо номер замовлення"""
     track_no = 'razer_' + str(random.randint(1111, 9999))
     while Order.objects.filter(tracking_no=track_no) is None:
         track_no = 'razer_' + str(random.randint(1111, 9999))
@@ -65,7 +62,6 @@ def placeorder(request):
 
     neworder.save()
 
-    """база всіх товарів в КОНКРЕТНОМУ замовленні"""
     for item in basket:
         OrderItem.objects.create(
             order=neworder,
@@ -82,5 +78,3 @@ def placeorder(request):
         f'has been placed successfully, wait for the operator to call you.')
 
     return render(request, 'store/home.html')
-
-    # return redirect('/')

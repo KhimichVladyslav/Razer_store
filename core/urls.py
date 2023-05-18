@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
+from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -10,7 +10,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('contact/', include('contact.urls', namespace='contact')),
     path('', include('store.urls', namespace='store')),
-
 ]
 
 if settings.DEBUG:
